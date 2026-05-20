@@ -47,7 +47,7 @@ def get_odoo_version_from_release(odoo_dir: Path) -> str | None:
     return None
 
 
-def _extract_version_from_manifest(manifest_path: Path) -> str | None:
+def get_odoo_version_from_manifest(manifest_path: Path) -> str | None:
     """Extract the major version (e.g. '18.0') from a ``__manifest__.py`` file."""
     try:
         content = manifest_path.read_text()
@@ -74,7 +74,7 @@ def get_odoo_version_from_addons(addons_path: str) -> str | None:
         if not path.is_dir():
             continue
         for manifest in path.glob("*/__manifest__.py"):
-            v = _extract_version_from_manifest(manifest)
+            v = get_odoo_version_from_manifest(manifest)
             if v:
                 versions.append(v)
     if not versions:
@@ -95,7 +95,7 @@ def check_version_consistency(addons_path: str) -> dict[str, list[str]]:
         if not path.is_dir():
             continue
         for manifest in path.glob("*/__manifest__.py"):
-            v = _extract_version_from_manifest(manifest)
+            v = get_odoo_version_from_manifest(manifest)
             if v:
                 version_addons.setdefault(v, []).append(manifest.parent.name)
     return version_addons
