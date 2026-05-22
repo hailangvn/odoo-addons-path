@@ -5,6 +5,7 @@ from .main import (
     get_addons_path,
     get_odoo_version,
     get_odoo_version_from_addons,
+    get_odoo_version_from_manifest,
     get_odoo_version_from_release,
 )
 
@@ -15,5 +16,6 @@ __all__ = [
     "get_addons_path",
     "get_odoo_version",
     "get_odoo_version_from_addons",
+    "get_odoo_version_from_manifest",
     "get_odoo_version_from_release",
 ]

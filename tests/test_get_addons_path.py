@@ -4,12 +4,12 @@ from pathlib import Path
 import pytest
 
 from odoo_addons_path.main import (
-    _extract_version_from_manifest,
     check_version_consistency,
     detect_codebase_layout,
     get_addons_path,
     get_odoo_version,
     get_odoo_version_from_addons,
+    get_odoo_version_from_manifest,
     get_odoo_version_from_release,
 )
 
@@ -133,36 +133,36 @@ class TestExtractVersionFromManifest:
     def test_standard_version(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text('{"name": "Test", "version": "18.0.1.0.0"}')
-        assert _extract_version_from_manifest(manifest) == "18.0"
+        assert get_odoo_version_from_manifest(manifest) == "18.0"
 
     def test_short_version_ignored(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text('{"name": "Test", "version": "17.0.1.0"}')
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
     def test_non_odoo_version_ignored(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text('{"name": "Test", "version": "1.0"}')
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
     def test_no_version_key(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text('{"name": "Test"}')
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
     def test_empty_file(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text("")
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
     def test_invalid_syntax(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
         manifest.write_text("{invalid")
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
     def test_missing_file(self, tmp_path: Path):
         manifest = tmp_path / "__manifest__.py"
-        assert _extract_version_from_manifest(manifest) is None
+        assert get_odoo_version_from_manifest(manifest) is None
 
 
 class TestGetOdooVersionFromAddons:
