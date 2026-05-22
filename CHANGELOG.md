@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.4.0 (2026-05-22)
+
+### Features
+
+- Add --format json option to odoo-addons-path CLI
+  ([`69deba2`](https://github.com/trobz/odoo-addons-path/commit/69deba2f8918d048c8967e4e5d9ec7a8ea447580))
+
+- Expose get_odoo_version_from_manifest function
+  ([`18a5f41`](https://github.com/trobz/odoo-addons-path/commit/18a5f4107ba63eaec070786fdc14ad738909d104))
+
+
 ## v1.3.0 (2026-05-11)
 
 ### Features
